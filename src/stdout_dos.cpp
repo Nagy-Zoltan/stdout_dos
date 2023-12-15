@@ -17,6 +17,7 @@ int main() {
 	PROCESSENTRY32 pe;
 	pe.dwSize = sizeof(pe);
 	BOOL consoleAttached;
+	HANDLE hStdOut;
 
 	char hello[7] = "Hello\n";
 
@@ -27,7 +28,7 @@ int main() {
 			consoleAttached = AttachConsole(pe.th32ProcessID);
 			SetConsoleCtrlHandler(CtrlHandler, TRUE);
 			if (consoleAttached) {
-				HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+				hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 				WriteConsoleA(hStdOut, hello, 7, NULL, NULL);
 			}
 			FreeConsole();
